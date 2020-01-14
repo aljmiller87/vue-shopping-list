@@ -1,5 +1,4 @@
-@import "main_styles";
-@import "responsive";
+// Order of styles matter for this template
 @import "cart";
 @import "cart_responsive";
 @import "categories";
@@ -8,3 +7,5 @@
 @import "contact_responsive";
 @import "product";
 @import "product_responsive";
+@import "main_styles";
+@import "responsive";

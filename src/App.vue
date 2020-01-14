@@ -2,16 +2,23 @@
   <div id="app">
     <div class="super_container">
       <Header />
+      <Menu />
       <router-view />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
   import Header from "@/components/Header";
+  import Footer from "@/components/Footer"
+  import Menu from "@/components/Menu"
+
   export default {
   components: {
-    Header
+      Header,
+      Footer,
+      Menu
   }
 };
 </script>

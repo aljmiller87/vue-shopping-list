@@ -49,7 +49,7 @@
 
 											</g>
 										</svg>
-                    <div>Cart <span>(0)</span></div>
+                    <div>Cart <span>({{ cartNumber }})</span></div>
                   </a>
                 </div>
                 <div class="search">
@@ -109,11 +109,16 @@
   </header>
 </template>
 
-<script>export default {
+<script>
+import { store } from "@/store";
+
+export default {
   name: "Header",
   data() {
     return {
       header: undefined,
+      store: store.state,
+      cartNumber: 0,
     }
   },
   mounted() {
@@ -133,5 +138,14 @@
         this.header.classList.remove('scrolled');
       }
     }
-  }
+  },
+  watch: {
+      'store.cart.itemsNumber': {
+        immediate: true,
+        handler(newValue, oldValue) {
+          console.log('oldValue: ', oldValue, ' newValue: ', newValue);
+          this.cartNumber = newValue !== undefined ? newValue : 0;
+        }
+      }
+    },
 };</script>

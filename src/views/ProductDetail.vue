@@ -29,9 +29,9 @@
 				<!-- Product Content -->
 				<div class="col-lg-6">
 					<div class="details_content">
-						<div class="details_name">Smart Phone</div>
+						<div class="details_name">{{ product.name }}</div>
 						<div class="details_discount">$890</div>
-						<div class="details_price">$670</div>
+						<div class="details_price">${{ product.price }}</div>
 
 						<!-- In Stock -->
 						<div class="in_stock_container">
@@ -64,7 +64,9 @@
                                     </div id="quantity_dec_button">
 								</div>
 							</div>
-							<div class="button cart_button"><a href="#">Add to cart</a></div>
+							<div v-on:click="this.addToCart" class="button cart_button">
+                                <span>Add to cart</span>
+                            </div>
 						</div>
 
 						<!-- Share -->
@@ -99,12 +101,14 @@
 <script>
     import { fetchProducts } from "@/utils/products";
     import { getImagePath } from "@/utils/getImagePath";
+    import { store } from "@/store";
 
     export default {
         name: 'ProductDetail',
         // props: ['id', 'name', 'price', 'option'],
         data() {
             return {
+                store: store.state,
                 product: {
                     id: this.$route.params.id,
                     name: this.$route.params.name ? this.$route.params.name : undefined,
@@ -140,6 +144,12 @@
                 this.selectedImage = firstImage;
             },
             getImagePath: getImagePath,
+            addToCart() {
+                console.log('add to cart called');
+                const item = this.product;
+                const qty = this.quantity;
+                store.addToCart(item, qty);
+            },
             setSelectedImage(img) {
                 this.selectedImage = img;
             },

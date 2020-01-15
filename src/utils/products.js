@@ -1,7 +1,6 @@
 import * as axios from 'axios';
 
 export const fetchProducts = async () => {
-    console.log('fetchProducts called');
     try {
         const response = await axios.get('api/products.json');
         const data = parseList(response);

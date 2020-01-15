@@ -111,4 +111,27 @@
 
 <script>export default {
   name: "Header",
+  data() {
+    return {
+      header: undefined,
+    }
+  },
+  mounted() {
+    this.header = document.querySelector('.header');
+    window.addEventListener('resize', this.setHeader);
+    window.addEventListener('scroll', this.setHeader);
+  },
+  beforeDestoy() {
+    window.removeEventListener('resize', this.setHeader);
+    window.removeEventListener('scroll', this.setHeader);
+  },
+  methods: {
+    setHeader() {
+      if(window.pageYOffset > 100) {
+        this.header.classList.add('scrolled');
+      } else {
+        this.header.classList.remove('scrolled');
+      }
+    }
+  }
 };</script>

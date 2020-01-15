@@ -93,7 +93,6 @@
       }
     },
     mounted() {
-      console.log('slider mounted');
       if (document.querySelectorAll('.home_slider').length)
 		{
         const homeSlider = $('.home_slider');
@@ -110,15 +109,8 @@
 			});
 
       /* Custom dots events */
-   //     const homeSliderDotsNodes = document.querySelectorAll('.home_slider_custom_dot');
-   //     const homeSliderDots = [...homeSliderDotsNodes];
 		if($('.home_slider_custom_dot').length)
       {
-   //     homeSliderDots.forEach((dot, index) => {
-   //       dot.addEventListener('click', (e) => {
-
-   //       })
-   //     })
         $('.home_slider_custom_dot').on('click', function ()
 				{
 					document.querySelector('.home_slider_custom_dot').classList.remove('active');

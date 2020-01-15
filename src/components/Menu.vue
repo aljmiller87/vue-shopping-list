@@ -101,21 +101,17 @@
       },
       toggleMenuLink(event) {
         if (this.hasChildren(event.target)) {
-          console.log('has-children');
           event.preventDefault();
           event.stopPropagation();
           const subItem = this.findSubNav(event.target);
-          console.log('subItem', subItem);
+
           if (!subItem) {
             return;
           }
-          if(subItem.classList.contains('active'))
-          {
+          if(subItem.classList.contains('active')) {
             subItem.classList.toggle('active');
             TweenMax.to(subItem, 0.3, {height:0});
-          }
-          else
-          {
+          } else {
             subItem.classList.toggle('active');
             TweenMax.set(subItem, {height:"auto"});
             TweenMax.from(subItem, 0.3, {height:0});

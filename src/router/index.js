@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ProductDetail from "../views/ProductDetail.vue";
+import Cart from "../views/Cart.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
       // option: route.params.option
     }),
     component: ProductDetail,
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart,
   }
 ];
 

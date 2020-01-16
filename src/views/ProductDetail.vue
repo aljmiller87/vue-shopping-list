@@ -108,7 +108,7 @@
         // props: ['id', 'name', 'price', 'option'],
         data() {
             return {
-                store: store.state,
+                localStore: store,
                 product: {
                     id: this.$route.params.id,
                     name: this.$route.params.name ? this.$route.params.name : undefined,

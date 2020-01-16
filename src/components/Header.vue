@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col">
             <div class="header_content d-flex flex-row align-items-center justify-content-start">
-              <div class="logo"><a href="/">Sublime.</a></div>
+              <div class="logo"><router-link :to="{ name: 'home' }">Sublime.</router-link></div>
               <nav class="main_nav">
                 <ul>
                   <li class="hassubs active">
@@ -37,7 +37,7 @@
               </nav>
               <div class="header_extra ml-auto">
                 <div class="shopping_cart">
-                  <a href="cart.html">
+                  <router-link to="/cart">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;" xml:space="preserve">
                     <g>
@@ -50,7 +50,7 @@
 											</g>
 										</svg>
                     <div>Cart <span>({{ cartNumber }})</span></div>
-                  </a>
+                  </router-link>
                 </div>
                 <div class="search">
                   <div class="search_icon">
@@ -117,7 +117,7 @@ export default {
   data() {
     return {
       header: undefined,
-      store: store.state,
+      store: store,
       cartNumber: 0,
     }
   },
@@ -140,7 +140,7 @@ export default {
     }
   },
   watch: {
-      'store.cart.itemsNumber': {
+      'store.itemsNumber': {
         immediate: true,
         handler(newValue, oldValue) {
           console.log('oldValue: ', oldValue, ' newValue: ', newValue);

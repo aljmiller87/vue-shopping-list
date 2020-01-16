@@ -100,7 +100,6 @@
 
 <script>
     import { fetchProducts } from "@/utils/products";
-    import { getImagePath } from "@/utils/getImagePath";
     import { store } from "@/store";
 
     export default {
@@ -143,7 +142,9 @@
                 const firstImage = this.product.images[0];
                 this.selectedImage = firstImage;
             },
-            getImagePath: getImagePath,
+            getImagePath(path) {
+                return require('../images/' + path);
+            },
             addToCart() {
                 console.log('add to cart called');
                 const item = this.product;

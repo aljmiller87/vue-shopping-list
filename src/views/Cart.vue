@@ -13,14 +13,14 @@
 				</div>
 			</div>
 
-			<Rows />
+			<CartProductList :items="items" />
 
 			<div class="row row_cart_buttons">
 				<div class="col">
 					<div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
 						<div class="button continue_shopping_button"><a href="#">Continue shopping</a></div>
 						<div class="cart_buttons_right ml-lg-auto">
-							<div class="button clear_cart_button"><a href="#">Clear cart</a></div>
+							<div class="button clear_cart_button"><a href="#" v-on:click="this.clearCart">Clear cart</a></div>
 							<div class="button update_cart_button"><a href="#">Update cart</a></div>
 						</div>
 					</div>
@@ -35,17 +35,33 @@
 						<div class="section_subtitle">Select the one you want</div>
 						<div class="delivery_options">
 							<label class="delivery_option clearfix">Next day delivery
-								<input type="radio" name="radio">
+								<input
+                                    type="radio"
+                                    name="radio"
+                                    value="4.99"
+                                    v-model="shipping"
+                                >
 								<span class="checkmark"></span>
 								<span class="delivery_price">$4.99</span>
 							</label>
 							<label class="delivery_option clearfix">Standard delivery
-								<input type="radio" name="radio">
+								<input
+                                    type="radio"
+                                    name="radio"
+                                    value="1.99"
+                                    v-model="shipping"
+                                >
 								<span class="checkmark"></span>
 								<span class="delivery_price">$1.99</span>
 							</label>
 							<label class="delivery_option clearfix">Personal pickup
-								<input type="radio" checked="checked" name="radio">
+								<input
+                                    type="radio"
+                                    checked="checked"
+                                    name="radio"
+                                    value="0"
+                                    v-model="shipping"
+                                >
 								<span class="checkmark"></span>
 								<span class="delivery_price">Free</span>
 							</label>
@@ -77,11 +93,11 @@
 								</li>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Shipping</div>
-									<div class="cart_total_value ml-auto">Free</div>
+									<div class="cart_total_value ml-auto">${{ shipping }}</div>
 								</li>
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="cart_total_title">Total</div>
-									<div class="cart_total_value ml-auto">$790.90</div>
+									<div class="cart_total_value ml-auto">${{ total }}</div>
 								</li>
 							</ul>
 						</div>
@@ -98,7 +114,7 @@
     import { store } from "@/store";
 
     // components 
-    import Rows from "@/components/Cart/Rows";
+    import CartProductList from "@/components/Cart/ProductList";
 
     // utilities
     import { getImagePath } from "@/utils/getImagePath";
@@ -106,11 +122,13 @@
     export default {
         name: 'cart',
         components: {
-            Rows
+            CartProductList
         },
         data() {
             return {
                 items: [],
+                itemNumber: 0,
+                shipping: 0
             }
         },
         async created() {
@@ -123,6 +141,9 @@
                 }
                 const subTotal = this.items.reduce((total, item) => total + (item.quantity * item.product.price), 0);
                 return subTotal;
+            },
+            total: function() {
+                return this.subtotal + parseFloat(this.shipping);
             }
         },
         methods: {
@@ -130,8 +151,22 @@
                 const cartItems = [...store.items];
                 console.log('cartItems', cartItems);
                 this.items = cartItems;
+                this.itemNumber = store.itemNumber;
             },
+            clearCart() {
+                console.log('clearCart called');
+                store.clearCart();
+            }
+        },
+        watch: {
+        'store.itemsNumber': {
+            immediate: true,
+            async handler(newValue, oldValue) {
+                console.log('oldValue: ', oldValue, ' newValue: ', newValue);
+                await this.loadCart();
+            }
         }
+    },
     }
 </script>
 

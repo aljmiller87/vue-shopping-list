@@ -52,23 +52,34 @@ class Cart {
         return this.items.findIndex(item => item.product.id === id)
     }
 
-    removeFromCart(productID) {
+    removeFromCart(product) {
         // Getting copy of list of products in cart
         let cartProducts = [...this.items];
   
         // Finding index of product in cart (-1 if not in cart)
-        let index = this.findProductInCart(productID);
+        let index = this.findProductInCart(product.id);
   
         // Setting state by either adding product to cart or updating product's quantity in cart
         let productQuantity = this.items[index].quantity;
         if (productQuantity > 1) {
           cartProducts[index].quantity -= 1
         } else {
+          console.log('NEED TO SPLICE OUT')
+          console.log(index, cartProducts);
           cartProducts.splice(index, 1);
+          console.log('cartproducts after', cartProducts);
         }
         
         this.itemsNumber -= 1;
-        this.items = cartProducts;  
+        this.items = cartProducts;
+
+        this.saveCartData();
+    }
+
+    clearCart() {
+      this.items = [];
+      this.itemsNumber = 0;
+      this.saveCartData();
     }
 }
 

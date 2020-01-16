@@ -148,12 +148,10 @@
         methods: {
             async loadCart() {
                 const cartItems = [...store.items];
-                console.log('cartItems', cartItems);
                 this.items = cartItems;
                 this.itemNumber = store.itemNumber;
             },
             clearCart() {
-                console.log('clearCart called');
                 store.clearCart();
             }
         },

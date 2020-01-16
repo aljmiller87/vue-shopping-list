@@ -27,8 +27,6 @@ class Cart {
     addToCart(product, quantity = 1) {
         // Getting copy of list of products in cart
         let cartProducts = [...this.items];
-        console.log('cartProducts', cartProducts);
-        console.log('product', product);
   
         // Finding index of product in cart (-1 if not in cart)
         let foundProduct = this.findProductInCart(product.id);
@@ -64,10 +62,7 @@ class Cart {
         if (productQuantity > 1) {
           cartProducts[index].quantity -= 1
         } else {
-          console.log('NEED TO SPLICE OUT')
-          console.log(index, cartProducts);
           cartProducts.splice(index, 1);
-          console.log('cartproducts after', cartProducts);
         }
         
         this.itemsNumber -= 1;

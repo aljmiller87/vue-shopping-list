@@ -120,7 +120,6 @@
             }
         },
         async created() {
-            console.log('this product detail', this.$route.params);
             if(!this.isDataComplete()) {
                 await this.loadProduct();
             }
@@ -146,7 +145,6 @@
                 return require('../images/' + path);
             },
             addToCart() {
-                console.log('add to cart called');
                 const item = this.product;
                 const qty = this.quantity;
                 store.addToCart(item, qty);

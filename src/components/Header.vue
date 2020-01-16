@@ -143,7 +143,6 @@ export default {
       'store.itemsNumber': {
         immediate: true,
         handler(newValue, oldValue) {
-          console.log('oldValue: ', oldValue, ' newValue: ', newValue);
           this.cartNumber = newValue !== undefined ? newValue : 0;
         }
       }

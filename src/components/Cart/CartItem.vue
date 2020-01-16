@@ -64,13 +64,11 @@
                 return require('../../images/' + path);
             },
             addToCart() {
-                console.log('add to cart called');
                 const item = this.product.product;
                 store.addToCart(item);
             },
             removeFromCart() {
                 const item = this.product.product;
-                console.log('item to remove: ', item);
                 store.removeFromCart(item);
             },
         }

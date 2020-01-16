@@ -2,7 +2,6 @@ import Isotope from 'isotope-layout';
 import imagesLoaded from 'imagesloaded';
 
 export default function initIsotope() {
-  console.log('initIsotope');
     var elem = document.querySelector('.product_grid');
     
     if (elem) {

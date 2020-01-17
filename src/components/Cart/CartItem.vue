@@ -6,7 +6,13 @@
                 <div><img :src="getImagePath(product.product.images[0])" alt=""></div>
             </div>
             <div class="cart_item_name_container">
-                <div class="cart_item_name"><a href="#">{{ product.product.name }}</a></div>
+                <div class="cart_item_name">
+                    <router-link 
+                        :to="{ name: 'product-detail', params: { id: product.product.id } }"
+                    >
+                        {{ product.product.name }}
+                    </router-link>
+                </div>
             </div>
         </div>
         <!-- Price -->

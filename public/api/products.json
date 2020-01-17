@@ -1,57 +1,105 @@
 [
   {
     "id": 1,
-    "images": ["product_1.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_1.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Smart Phone",
+    "description": "Lorem ipsum dolor amet typewriter vinyl humblebrag, literally next level semiotics drinking vinegar tattooed lomo tousled woke iceland. Flannel enamel pin biodiesel, irony vaporware marfa four dollar toast.",
     "price": 670,
     "option": "New"
   },
   {
     "id": 2,
-    "images": ["product_2.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_2.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Speaker",
+    "description": "Lorem ipsum dolor amet cred hell of godard vaporware pop-up, aesthetic before they sold out offal actually shabby chic try-hard photo booth.",
     "price": 90,
     "option": "Sale"
   },
   {
     "id": 3,
-    "images": ["product_3.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_3.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Cable",
+    "description": "Lorem ipsum dolor amet vice kitsch coloring book, af marfa authentic art party biodiesel bicycle rights offal normcore. Master cleanse mumblecore salvia yr lo-fi. Brooklyn freegan 8-bit single-origin coffee tumeric.",
     "price": 15,
     "option": "Default"
   },
   {
     "id": 4,
-    "images": ["product_4.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_4.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Computer",
+    "description": "Lorem ipsum dolor amet selvage YOLO cloud bread copper mug 90's butcher venmo williamsburg church-key biodiesel tilde VHS banh mi taxidermy roof party. Brooklyn chillwave hella unicorn yr poke palo santo cold-pressed.",
     "price": 1250,
     "option": "Default"
   },
   {
     "id": 5,
-    "images": ["product_5.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_5.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Headphones",
+    "description": "Lorem ipsum dolor amet bespoke sartorial fanny pack, jean shorts banjo try-hard keffiyeh cliche subway tile deep v chicharrones hella. Ennui hexagon franzen forage, bespoke coloring book shabby chic asymmetrical mumblecore knausgaard hashtag.",
     "price": 65,
     "option": "Default"
   },
   {
     "id": 6,
-    "images": ["product_6.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_6.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Tablet",
+    "description": "Jean shorts neutra portland twee mumblecore fingerstache williamsburg roof party kale chips jianbing hoodie normcore palo santo. Chicharrones kitsch copper mug, banjo bitters ramps ethical irony woke succulents.",
     "price": 590,
     "option": "Popular"
   },
   {
     "id": 7,
-    "images": ["product_7.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_7.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Budget Smart Phone",
+    "description": "Vaporware aesthetic raw denim gastropub keytar helvetica freegan tacos synth sartorial cornhole. Coloring book activated charcoal trust fund mixtape, cliche man bun chartreuse wolf helvetica shaman twee pinterest viral post-ironic.",
     "price": 190,
     "option": "Hot"
   },
   {
     "id": 8,
-    "images": ["product_8.jpg", "details_2.jpg", "details_3.jpg", "details_4.jpg"],
+    "images": [
+      "product_8.jpg",
+      "details_2.jpg",
+      "details_3.jpg",
+      "details_4.jpg"
+    ],
     "name": "Keyboard",
+    "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 45,
     "option": "Default"
   }

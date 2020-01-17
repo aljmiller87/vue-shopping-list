@@ -54,6 +54,12 @@
                 product: this.cartItem,
             }
         },
+        created () {
+            console.log('cart item created');
+        },
+        updated () {
+            console.log('cart item updated');
+        },
         computed: {
             productTotal() {
                 return this.product.quantity * parseFloat(this.product.product.price);

@@ -20,6 +20,6 @@
       Slider,
       Ads,
       ProductsList
-    }
+    },
   };
 </script>

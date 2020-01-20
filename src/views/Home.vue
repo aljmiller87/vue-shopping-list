@@ -4,22 +4,22 @@
       <Slider />
     </div>
     <Ads />
-    <ProductsList />
+    <ProductsList :limit="8" />
   </div>
 </template>
 
 <script>
-  // @ is an alias to /src
-  import Slider from "@/components/Slider";
-  import Ads from "@/components/Ads";
-  import ProductsList from "@/components/Products/ProductsList";
+// @ is an alias to /src
+import Slider from "@/components/Slider";
+import Ads from "@/components/Ads";
+import ProductsList from "@/components/Products/ProductsList";
 
-  export default {
-    name: "home",
-    components: {
-      Slider,
-      Ads,
-      ProductsList
-    },
-  };
+export default {
+  name: "home",
+  components: {
+    Slider,
+    Ads,
+    ProductsList
+  }
+};
 </script>

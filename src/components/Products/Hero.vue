@@ -28,13 +28,12 @@ import backgroundUrl from "@/images/categories.jpg";
 export default {
   name: "ProductHero",
   props: {
-    product: Object
+    title: String,
+    description: String
   },
   data() {
     return {
-      bg: backgroundUrl,
-      description: this.product.description,
-      title: this.product.name
+      bg: backgroundUrl
     };
   }
 };

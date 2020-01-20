@@ -22,25 +22,34 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: '/products/:id',
-    name: 'product-detail',
-    props: route => ({ 
-      id: parseInt(route.params.id),
+    path: "/products/:id",
+    name: "product-detail",
+    props: route => ({
+      id: parseInt(route.params.id)
       // name: route.params.name,
       // price: route.params.price,
       // option: route.params.option
     }),
-    component: ProductDetail,
+    component: ProductDetail
   },
   {
-    path: '/cart',
-    name: 'cart',
-    component: Cart,
+    path: "/cart",
+    name: "cart",
+    component: Cart
+  },
+  {
+    path: "/products",
+    name: "products",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Products.vue")
   }
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   routes
 });
 

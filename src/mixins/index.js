@@ -1,5 +1,5 @@
 export const created = {
-    created() {
-        console.log('created lifecycle hook');
-    }
-}
+  created() {
+    console.log("created lifecycle hook");
+  }
+};

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProductHero :product="product" />
+    <ProductHero :title="product.name" :description="product.description" />
     <div class="product_details">
       <div class="container">
         <div class="row details_row">
@@ -9,8 +9,12 @@
             <div class="details_image">
               <div class="details_image_large">
                 <img v-if="selectedImage" :src="getImagePath(selectedImage)" alt />
-                <div class="product_extra product_new">
-                  <a href="categories.html">{{ product.option }}</a>
+                <div
+                  class="product_extra"
+                  :class="option[product.option]"
+                  v-if="product.option !== 'default'"
+                >
+                  <a href="categories.html">{{ product.option | capitalize }}</a>
                 </div>
               </div>
               <div
@@ -137,12 +141,27 @@ export default {
       quantity: 1,
       selectedImage: this.$route.params.images
         ? this.$route.params.images[0]
-        : false
+        : false,
+      option: {
+        default: "",
+        hot: "product_hot",
+        new: "product_new",
+        popular: "product_popular",
+        sale: "product_sale"
+      }
     };
   },
   async created() {
+    window.scrollTo(0, 0);
     if (!this.isDataComplete()) {
       await this.loadProduct();
+    }
+  },
+  filters: {
+    capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
     }
   },
   methods: {

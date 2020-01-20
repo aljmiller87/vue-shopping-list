@@ -1035,6 +1035,10 @@ section {
   z-index: 2;
   padding-top: 89px;
 }
+
+.products_sort + .products {
+  padding: 0;
+}
 .products_title {
   font-size: 30px;
   font-weight: 500;

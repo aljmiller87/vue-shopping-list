@@ -213,6 +213,13 @@ section {
 .nopadding {
   padding: 0px !important;
 }
+.btn-nodefault {
+  background: none;
+  border: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
 .button {
   width: 178px;
   height: 61px;

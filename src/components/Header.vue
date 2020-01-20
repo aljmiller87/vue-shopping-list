@@ -36,13 +36,14 @@
                     <router-link to="/products">Products</router-link>
                   </li>
                   <li>
-                    <router-link to="/products/accessories">Accessories</router-link>
+                    <!-- <router-link to="/products/accessories">Accessories</router-link>
                   </li>
                   <li>
                     <router-link to="/offers">Offers</router-link>
                   </li>
                   <li>
                     <router-link to="/contact">Contact</router-link>
+                    </li>-->
                   </li>
                 </ul>
               </nav>
@@ -76,7 +77,7 @@
                   </router-link>
                 </div>
                 <div class="search">
-                  <div class="search_icon">
+                  <div class="search_icon" v-on:click="toggleSearch">
                     <svg
                       version="1.1"
                       id="Capa_1"
@@ -117,15 +118,21 @@
     </div>
 
     <!-- Search Panel -->
-    <div class="search_panel trans_300">
+    <div class="search_panel trans_300" :class="{ active: searchActive }">
       <div class="container">
         <div class="row">
           <div class="col">
             <div
               class="search_panel_content d-flex flex-row align-items-center justify-content-end"
             >
-              <form action="#">
-                <input type="text" class="search_input" placeholder="Search" required="required" />
+              <form action="#" v-on:submit.prevent="initSearch">
+                <input
+                  type="text"
+                  class="search_input"
+                  placeholder="Search"
+                  required="required"
+                  v-model="searchTerm"
+                />
               </form>
             </div>
           </div>
@@ -170,7 +177,9 @@ export default {
     return {
       header: undefined,
       store: store,
-      cartNumber: 0
+      cartNumber: 0,
+      searchActive: false,
+      searchTerm: ""
     };
   },
   mounted() {
@@ -189,6 +198,19 @@ export default {
       } else {
         this.header.classList.remove("scrolled");
       }
+    },
+    toggleSearch() {
+      this.searchActive = !this.searchActive;
+    },
+    initSearch() {
+      this.toggleSearch();
+      // this.$router.push({ name: "home" });
+      this.$router
+        .push({
+          name: "search-results",
+          params: { searchTerm: this.searchTerm }
+        })
+        .catch(err => {});
     }
   },
   watch: {

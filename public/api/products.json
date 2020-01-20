@@ -10,7 +10,8 @@
     "name": "Smart Phone",
     "description": "Lorem ipsum dolor amet typewriter vinyl humblebrag, literally next level semiotics drinking vinegar tattooed lomo tousled woke iceland. Flannel enamel pin biodiesel, irony vaporware marfa four dollar toast.",
     "price": 670,
-    "option": "new"
+    "option": "new",
+    "categories": ["phone"]
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "name": "Speaker",
     "description": "Lorem ipsum dolor amet cred hell of godard vaporware pop-up, aesthetic before they sold out offal actually shabby chic try-hard photo booth.",
     "price": 90,
-    "option": "sale"
+    "option": "sale",
+    "categories": ["audio", "speaker"]
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "name": "Cable",
     "description": "Lorem ipsum dolor amet vice kitsch coloring book, af marfa authentic art party biodiesel bicycle rights offal normcore. Master cleanse mumblecore salvia yr lo-fi. Brooklyn freegan 8-bit single-origin coffee tumeric.",
     "price": 15,
-    "option": "default"
+    "option": "default",
+    "categories": ["accessories"]
   },
   {
     "id": 4,
@@ -49,7 +52,8 @@
     "name": "Computer",
     "description": "Lorem ipsum dolor amet selvage YOLO cloud bread copper mug 90's butcher venmo williamsburg church-key biodiesel tilde VHS banh mi taxidermy roof party. Brooklyn chillwave hella unicorn yr poke palo santo cold-pressed.",
     "price": 1250,
-    "option": "default"
+    "option": "default",
+    "categories": ["computer"]
   },
   {
     "id": 5,
@@ -62,7 +66,8 @@
     "name": "Headphones",
     "description": "Lorem ipsum dolor amet bespoke sartorial fanny pack, jean shorts banjo try-hard keffiyeh cliche subway tile deep v chicharrones hella. Ennui hexagon franzen forage, bespoke coloring book shabby chic asymmetrical mumblecore knausgaard hashtag.",
     "price": 65,
-    "option": "default"
+    "option": "default",
+    "categories": ["audio", "headphones"]
   },
   {
     "id": 6,
@@ -75,7 +80,8 @@
     "name": "Tablet",
     "description": "Jean shorts neutra portland twee mumblecore fingerstache williamsburg roof party kale chips jianbing hoodie normcore palo santo. Chicharrones kitsch copper mug, banjo bitters ramps ethical irony woke succulents.",
     "price": 590,
-    "option": "popular"
+    "option": "popular",
+    "categories": ["tablet"]
   },
   {
     "id": 7,
@@ -88,7 +94,8 @@
     "name": "Budget Smart Phone",
     "description": "Vaporware aesthetic raw denim gastropub keytar helvetica freegan tacos synth sartorial cornhole. Coloring book activated charcoal trust fund mixtape, cliche man bun chartreuse wolf helvetica shaman twee pinterest viral post-ironic.",
     "price": 190,
-    "option": "hot"
+    "option": "hot",
+    "categories": ["phone"]
   },
   {
     "id": 8,
@@ -101,7 +108,8 @@
     "name": "Keyboard",
     "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 45,
-    "option": "default"
+    "option": "default",
+    "categories": ["accessories"]
   },
   {
     "id": 9,
@@ -114,7 +122,8 @@
     "name": "Drone",
     "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 95,
-    "option": "new"
+    "option": "new",
+    "categories": ["gadgets"]
   },
   {
     "id": 10,
@@ -127,7 +136,8 @@
     "name": "Budget Headphones",
     "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 25,
-    "option": "default"
+    "option": "default",
+    "categories": ["audio", "headphones"]
   },
   {
     "id": 11,
@@ -140,7 +150,8 @@
     "name": "Game Console",
     "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 195,
-    "option": "default"
+    "option": "default",
+    "categories": ["video games"]
   },
   {
     "id": 12,
@@ -153,6 +164,7 @@
     "name": "Digital Camera",
     "description": "Truffaut direct trade pour-over ennui narwhal. Beard DIY gochujang mlkshk YOLO forage. Ennui crucifix cronut umami helvetica, unicorn chillwave pickled synth migas pour-over PBR&B irony.",
     "price": 165,
-    "option": "default"
+    "option": "default",
+    "categories": ["camera"]
   }
 ]

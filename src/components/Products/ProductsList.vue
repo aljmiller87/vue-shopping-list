@@ -51,7 +51,10 @@ import { getImagePath } from "@/utils/getImagePath";
 export default {
   name: "ProductsList",
   props: {
-    limit: Number
+    category: String,
+    limit: Number,
+    searchTerm: String,
+    sort: String
   },
   data() {
     return {
@@ -70,7 +73,50 @@ export default {
   },
   computed: {
     computedList() {
-      return this.limit ? this.products.slice(0, this.limit) : this.products;
+      let productList = [...this.products];
+
+      // If Limit is passed
+      if (this.limit) {
+        productList = productList.slice(0, this.limit);
+      }
+
+      // If Sort value is passed
+      if (this.sort) {
+        if (this.sort == "price") {
+          productList.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        }
+        if (this.sort == "name") {
+          productList.sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          });
+        }
+      }
+
+      // If Category value is passed
+      if (this.category) {
+        productList = productList.filter(product => {
+          const productCategories = product.categories;
+          const hasCategory = productCategories.indexOf(this.category);
+          return hasCategory >= 0;
+        });
+      }
+
+      // If Search Term value is passed
+      if (this.searchTerm) {
+        productList = productList.filter(
+          product =>
+            this.hasCategory(product, this.searchTerm) ||
+            this.hasName(product, this.searchTerm)
+        );
+      }
+
+      return productList;
     }
   },
   methods: {
@@ -78,7 +124,17 @@ export default {
       this.products = [];
       this.products = await fetchProducts();
     },
-    getImagePath: getImagePath
+    getImagePath: getImagePath,
+    hasCategory(product, searchTerm) {
+      const productCategories = product.categories;
+      const containsCategory = productCategories.indexOf(searchTerm);
+      return containsCategory >= 0;
+    },
+    hasName(product, searchTerm) {
+      const name = product.name.toLowerCase();
+      const term = searchTerm.toLowerCase();
+      return name.includes(term);
+    }
   },
   filters: {
     capitalize(value) {
@@ -96,6 +152,20 @@ export default {
           Isotope();
         });
       }
+    },
+    sort: {
+      immediate: true,
+      handler(newValue, oldValue) {
+        if (oldValue === newValue) return;
+        console.log(oldValue, newValue);
+        Isotope();
+      }
+    },
+    category(newValue, oldValue) {
+      Isotope();
+    },
+    searchTerm(newValue, oldValue) {
+      Isotope();
     }
   }
 };

@@ -1,27 +1,38 @@
-import * as axios from 'axios';
+import * as axios from "axios";
 
 export const fetchProducts = async () => {
-    try {
-        const response = await axios.get('/api/products.json');
-        const data = parseList(response);
-        return data;
-    } catch (error) {
-        console.error('error', error)
-        return [];
-    }
-}
+  try {
+    const response = await axios.get("/api/products.json");
+    const data = parseList(response);
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return [];
+  }
+};
+
+export const fetchCategories = async () => {
+  try {
+    const response = await axios.get("/api/categories.json");
+    const data = parseList(response);
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    return [];
+  }
+};
 
 const parseList = response => {
-    if (response.status !== 200) throw Error(response.message);
-    if (!response.data) return [];
-    let list = response.data;
-    if (typeof list !== 'object') {
-      list = [];
-    }
-    return list;
-  };
-  
+  if (response.status !== 200) throw Error(response.message);
+  if (!response.data) return [];
+  let list = response.data;
+  if (typeof list !== "object") {
+    list = [];
+  }
+  return list;
+};
 
 export default {
-    fetchProducts
-}
+  fetchCategories,
+  fetchProducts
+};

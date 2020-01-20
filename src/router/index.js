@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ProductDetail from "../views/ProductDetail.vue";
 import Cart from "../views/Cart.vue";
+import SearchResults from "../views/SearchResults.vue";
 
 Vue.use(VueRouter);
 
@@ -26,9 +27,6 @@ const routes = [
     name: "product-detail",
     props: route => ({
       id: parseInt(route.params.id)
-      // name: route.params.name,
-      // price: route.params.price,
-      // option: route.params.option
     }),
     component: ProductDetail
   },
@@ -45,6 +43,12 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Products.vue")
+  },
+  {
+    path: "/search/:searchTerm",
+    name: "search-results",
+    props: true,
+    component: SearchResults
   }
 ];
 

@@ -14,34 +14,67 @@
             <div class="sorting_container ml-md-auto">
               <div class="sorting">
                 <ul class="item_sorting">
-                  <li v-if="categories.length > 0">
-                    <span class="sorting_text">{{ computedCategory | capitalize}}</span>
+                  <li v-if="productCategories.length > 0">
+                    <span class="sorting_text">{{
+                      computedCategory | capitalize
+                    }}</span>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     <ul>
                       <li class="product_sorting_btn">
-                        <button class="btn-nodefault" value v-on:click="setCategory">Default</button>
+                        <button
+                          class="btn-nodefault"
+                          value
+                          v-on:click="setCategory"
+                        >
+                          Default
+                        </button>
                       </li>
-                      <li v-for="category in categories" class="product_sorting_btn">
+                      <li
+                        v-for="category in productCategories"
+                        class="product_sorting_btn"
+                      >
                         <button
                           class="btn-nodefault"
                           :value="category"
                           v-on:click="setCategory"
-                        >{{ category | capitalize }}</button>
+                        >
+                          {{ category | capitalize }}
+                        </button>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <span class="sorting_text">{{ computedSortBy | capitalize}}</span>
+                    <span class="sorting_text">{{
+                      computedSortBy | capitalize
+                    }}</span>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     <ul>
                       <li class="product_sorting_btn">
-                        <button class="btn-nodefault" value v-on:click="setSortBy">Default</button>
+                        <button
+                          class="btn-nodefault"
+                          value
+                          v-on:click="setSortBy"
+                        >
+                          Default
+                        </button>
                       </li>
                       <li class="product_sorting_btn">
-                        <button class="btn-nodefault" value="price" v-on:click="setSortBy">Price</button>
+                        <button
+                          class="btn-nodefault"
+                          value="price"
+                          v-on:click="setSortBy"
+                        >
+                          Price
+                        </button>
                       </li>
                       <li class="product_sorting_btn">
-                        <button class="btn-nodefault" value="name" v-on:click="setSortBy">Name</button>
+                        <button
+                          class="btn-nodefault"
+                          value="name"
+                          v-on:click="setSortBy"
+                        >
+                          Name
+                        </button>
                       </li>
                     </ul>
                   </li>
@@ -57,8 +90,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import ProductsList from "@/components/Products/ProductsList";
-import { fetchCategories } from "@/utils/products";
 
 export default {
   name: "ProductSort",
@@ -68,12 +101,8 @@ export default {
   data() {
     return {
       category: "",
-      sortBy: "",
-      categories: []
+      sortBy: ""
     };
-  },
-  async created() {
-    await this.loadCategories();
   },
   methods: {
     setSortBy(e) {
@@ -83,13 +112,11 @@ export default {
     setCategory(e) {
       const value = e.target.value;
       this.category = value;
-    },
-    async loadCategories() {
-      this.categories = [];
-      this.categories = await fetchCategories();
     }
   },
   computed: {
+    ...mapState(["productCategories", "loadingStatus"]),
+    ...mapGetters(["getProductCategories"]),
     computedSortBy() {
       if (!this.sortBy) {
         return "Sort by";
@@ -113,5 +140,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

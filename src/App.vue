@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Menu from "@/components/Menu";
@@ -21,6 +22,9 @@ export default {
     Header,
     Footer,
     Menu
+  },
+  created() {
+    this.$store.dispatch("getAllDate");
   }
 };
 </script>

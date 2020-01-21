@@ -7,7 +7,11 @@
         <div class="col">
           <div class="product_grid">
             <!-- Product -->
-            <div v-for="product in computedList" :key="product.id" class="product">
+            <div
+              v-for="product in computedList"
+              :key="product.id"
+              class="product"
+            >
               <div class="product_image">
                 <img :src="getImagePath(product.images[0])" alt />
               </div>
@@ -21,16 +25,17 @@
               <div class="product_content">
                 <div class="product_title">
                   <router-link
-                    :to="{ 
-                      name: 'product-detail', 
-                      params: { 
+                    :to="{
+                      name: 'product-detail',
+                      params: {
                         id: product.id,
                         name: product.name,
                         price: product.price,
                         option: product.option
-                      } 
+                      }
                     }"
-                  >{{ product.name }}</router-link>
+                    >{{ product.name }}</router-link
+                  >
                 </div>
                 <div class="product_price">${{ product.price }}</div>
               </div>
@@ -43,6 +48,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import imagesLoaded from "imagesloaded";
 import Isotope from "@/utils/isotope";
 import { fetchProducts } from "@/utils/products";
@@ -58,7 +64,7 @@ export default {
   },
   data() {
     return {
-      products: [],
+      // products: [],
       option: {
         default: "",
         hot: "product_hot",
@@ -68,11 +74,12 @@ export default {
       }
     };
   },
-  async created() {
-    await this.loadProducts();
-  },
   computed: {
+    ...mapState(["products", "loadingStatus"]),
     computedList() {
+      if (!this.products) {
+        return [];
+      }
       let productList = [...this.products];
 
       // If Limit is passed
@@ -120,10 +127,6 @@ export default {
     }
   },
   methods: {
-    async loadProducts() {
-      this.products = [];
-      this.products = await fetchProducts();
-    },
     getImagePath: getImagePath,
     hasCategory(product, searchTerm) {
       const productCategories = product.categories;

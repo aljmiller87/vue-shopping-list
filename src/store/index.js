@@ -1,83 +1,54 @@
-class Cart {
-    constructor() {
-        this.itemsNumber = 0;
-        this.items = [];
+import Vue from "vue";
+import Vuex from "vuex";
+import * as axios from "axios";
 
-        this.fetchData();
+import { fetchProducts, fetchCategories } from "@/utils/products";
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    loadingStatus: "notLoading",
+    productCategories: [],
+    products: [],
+    cartProducts: [],
+    cartProductCount: 0
+  },
+  mutations: {
+    SET_LOADING_STATUS(state, status) {
+      state.loadingStatus = status;
+    },
+    SET_PRODUCTS(state, products) {
+      state.products = products;
+    },
+    SET_CATEGORIES(state, categories) {
+      state.productCategories = categories;
     }
-
-    fetchData() {
-        const savedCart = JSON.parse(window.localStorage.getItem("saved_cart"));
-
-        if (savedCart) {
-            this.itemsNumber = savedCart.itemsNumber;
-            this.items = savedCart.items;
-        }
+  },
+  actions: {
+    async getAllData(context) {
+      context.commit("SET_LOADING_STATUS", "loading");
+      const products = await fetchProducts();
+      const categories = await fetchCategories();
+      context.commit("SET_PRODUCTS", products);
+      context.commit("SET_CATEGORIES", categories);
+      context.commit("SET_LOADING_STATUS", "notLoading");
+    },
+    async getProducts(context) {
+      context.commit("SET_LOADING_STATUS", "loading");
+      const products = await fetchProducts();
+      context.commit("SET_PRODUCTS", products);
+      context.commit("SET_LOADING_STATUS", "notLoading");
+    },
+    async getProductCategories(context) {
+      context.commit("SET_LOADING_STATUS", "loading");
+      const categories = await fetchCategories();
+      context.commit("SET_CATEGORIES", categories);
+      context.commit("SET_LOADING_STATUS", "notLoading");
     }
-
-    saveCartData() {
-        const items = [...this.items]
-        const savedState = {
-            itemsNumber: this.itemsNumber,
-            items
-        };
-      window.localStorage.setItem("saved_cart", JSON.stringify(savedState))
-    }
-
-    addToCart(product, quantity = 1) {
-        // Getting copy of list of products in cart
-        let cartProducts = [...this.items];
-  
-        // Finding index of product in cart (-1 if not in cart)
-        let foundProduct = this.findProductInCart(product.id);
-  
-        // Setting state by either adding product to cart or updating product's quantity in cart
-        if (foundProduct !== -1) {
-          cartProducts[foundProduct].quantity += quantity;
-        } else {
-          cartProducts.push({
-            product,
-            quantity
-          })
-        }
-        
-        this.itemsNumber += quantity;
-        this.items = cartProducts;
-        this.saveCartData();
-    }
-
-    findProductInCart(id) {
-        return this.items.findIndex(item => item.product.id === id)
-    }
-
-    removeFromCart(product) {
-        // Getting copy of list of products in cart
-        let cartProducts = [...this.items];
-  
-        // Finding index of product in cart (-1 if not in cart)
-        let index = this.findProductInCart(product.id);
-  
-        // Setting state by either adding product to cart or updating product's quantity in cart
-        let productQuantity = this.items[index].quantity;
-        if (productQuantity > 1) {
-          cartProducts[index].quantity -= 1
-        } else {
-          cartProducts.splice(index, 1);
-        }
-        
-        this.itemsNumber -= 1;
-        this.items = cartProducts;
-
-        this.saveCartData();
-    }
-
-    clearCart() {
-      this.items = [];
-      this.itemsNumber = 0;
-      this.saveCartData();
-    }
-}
-
-export const store = new Cart();
-
-export default { store };
+    // addToCart({ commit }, product, quantity = 1)
+  },
+  getters: {
+    getProductById: state => id => state.products.find(item => item.id == id)
+  }
+});

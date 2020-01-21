@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="product">
     <ProductHero :title="product.name" :description="product.description" />
     <div class="product_details">
       <div class="container">
@@ -8,13 +8,19 @@
           <div class="col-lg-6">
             <div class="details_image">
               <div class="details_image_large">
-                <img v-if="selectedImage" :src="getImagePath(selectedImage)" alt />
+                <img
+                  v-if="selectedImage"
+                  :src="getImagePath(selectedImage)"
+                  alt
+                />
                 <div
                   class="product_extra"
                   :class="option[product.option]"
                   v-if="product.option !== 'default'"
                 >
-                  <a href="categories.html">{{ product.option | capitalize }}</a>
+                  <a href="categories.html">{{
+                    product.option | capitalize
+                  }}</a>
                 </div>
               </div>
               <div
@@ -46,14 +52,26 @@
                 <span>In Stock</span>
               </div>
               <div class="details_text">
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+                <p>
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                  aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo
+                  tempus mollis sed et dui. In hac habitasse platea dictumst.
+                  Suspendisse ultrices mauris diam. Nullam sed aliquet elit.
+                  Mauris consequat nisi ut mauris efficitur lacinia.
+                </p>
               </div>
 
               <!-- Product Quantity -->
               <div class="product_quantity_container">
                 <div class="product_quantity clearfix">
                   <span>Qty</span>
-                  <input id="quantity_input" type="text" pattern="[0-9]*" :value="quantity" />>
+                  <input
+                    id="quantity_input"
+                    type="text"
+                    pattern="[0-9]*"
+                    :value="quantity"
+                  />>
                   <div class="quantity_buttons">
                     <div
                       id="quantity_inc_button"
@@ -113,9 +131,7 @@
 <script>
 // Store
 import { store } from "@/store";
-
-// Utils
-import { fetchProducts } from "@/utils/products";
+import { mapGetters, mapState } from "vuex";
 
 //Components
 import ProductHero from "@/components/Products/Hero";
@@ -125,23 +141,12 @@ export default {
   components: {
     ProductHero
   },
-  // props: ['id', 'name', 'price', 'option'],
   data() {
     return {
       localStore: store,
-      product: {
-        id: this.$route.params.id,
-        name: this.$route.params.name ? this.$route.params.name : undefined,
-        price: this.$route.params.price ? this.$route.params.price : undefined,
-        images: this.$route.params.images ? this.$route.params.images : [],
-        option: this.$route.params.option
-          ? this.$route.params.option
-          : undefined
-      },
+      product: {},
       quantity: 1,
-      selectedImage: this.$route.params.images
-        ? this.$route.params.images[0]
-        : false,
+      selectedImage: this.product ? this.product.images[0] : false,
       option: {
         default: "",
         hot: "product_hot",
@@ -151,11 +156,13 @@ export default {
       }
     };
   },
-  async created() {
+  created() {
     window.scrollTo(0, 0);
-    if (!this.isDataComplete()) {
-      await this.loadProduct();
-    }
+    this.product = this.getProductById(this.$route.params.id);
+  },
+  computed: {
+    ...mapState(["loadingStatus"]),
+    ...mapGetters(["getProductById"])
   },
   filters: {
     capitalize(value) {
@@ -165,26 +172,6 @@ export default {
     }
   },
   methods: {
-    isDataComplete() {
-      if (
-        !this.$route.params.name ||
-        !this.$route.params.price ||
-        !this.$route.params.images ||
-        !this.$route.params.option
-      ) {
-        return false;
-      }
-      return true;
-    },
-    async loadProduct() {
-      const products = await fetchProducts();
-      const product = products.filter(
-        item => item.id === parseInt(this.$route.params.id)
-      );
-      this.product = product[0];
-      const firstImage = this.product.images[0];
-      this.selectedImage = firstImage;
-    },
     getImagePath(path) {
       return require("../images/" + path);
     },
@@ -202,9 +189,22 @@ export default {
       }
       return false;
     }
+  },
+  watch: {
+    loadingStatus(newValue, oldValue) {
+      // If products has finished loading, update this.product
+      if (newValue === "notLoading") {
+        this.product = this.getProductById(this.$route.params.id);
+      }
+    },
+    product(newValue, oldValue) {
+      // If products successfully updates, also update this.selectedImage
+      if (this.product && this.product.images) {
+        this.selectedImage = this.product.images[0];
+      }
+    }
   }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

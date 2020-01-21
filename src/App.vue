@@ -24,7 +24,7 @@ export default {
     Menu
   },
   created() {
-    this.$store.dispatch("getAllDate");
+    this.$store.dispatch("getAllData");
   }
 };
 </script>

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import * as axios from "axios";
+import { findProductInCart, saveCartData } from "@/utils/helpers";
 
 import { fetchProducts, fetchCategories } from "@/utils/products";
 
@@ -23,6 +23,54 @@ export default new Vuex.Store({
     },
     SET_CATEGORIES(state, categories) {
       state.productCategories = categories;
+    },
+    SET_CART(state, savedCart) {
+      state.cartProducts = savedCart.cartProducts;
+      state.cartProductCount = savedCart.cartProductCount;
+    },
+    ADD_TO_CART(state, payload) {
+      const product = payload.product;
+      const quantity = payload.quantity;
+
+      // Getting copy of list of products in cart
+      let cartProducts = [...state.cartProducts];
+
+      // Finding index of product in cart (-1 if not in cart)
+      let foundProduct = findProductInCart(cartProducts, product.id);
+
+      // Setting state by either adding product to cart or updating product's quantity in cart
+      if (foundProduct !== -1) {
+        cartProducts[foundProduct].quantity += quantity;
+      } else {
+        cartProducts.push({
+          product,
+          quantity
+        });
+      }
+
+      state.cartProducts = cartProducts;
+      state.cartProductCount += quantity;
+      saveCartData(cartProducts, state.cartProductCount);
+    },
+    REMOVE_FROM_CARD(state, product) {
+      // Getting copy of list of products in cart
+      let cartProducts = [...state.cartProducts];
+
+      // Finding index of product in cart (-1 if not in cart)
+      let index = findProductInCart(cartProducts, product.id);
+
+      // Setting state by either adding product to cart or updating product's quantity in cart
+      let productQuantity = cartProducts[index].quantity;
+      if (productQuantity > 1) {
+        cartProducts[index].quantity -= 1;
+      } else {
+        cartProducts.splice(index, 1);
+      }
+
+      state.cartProductCount -= 1;
+      state.cartProducts = cartProducts;
+
+      saveCartData(cartProducts, cartProductCount);
     }
   },
   actions: {
@@ -45,8 +93,20 @@ export default new Vuex.Store({
       const categories = await fetchCategories();
       context.commit("SET_CATEGORIES", categories);
       context.commit("SET_LOADING_STATUS", "notLoading");
+    },
+    getCart(context) {
+      const savedCart = JSON.parse(window.localStorage.getItem("saved_cart"));
+
+      if (savedCart) {
+        context.commit("SET_CART", savedCart);
+      }
+    },
+    addToCart(context, payload) {
+      context.commit("ADD_TO_CART", payload);
+    },
+    removeFromCart(context, product) {
+      context.commit("REMOVE_FROM_CARD", product);
     }
-    // addToCart({ commit }, product, quantity = 1)
   },
   getters: {
     getProductById: state => id => state.products.find(item => item.id == id)

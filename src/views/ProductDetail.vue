@@ -8,19 +8,17 @@
           <div class="col-lg-6">
             <div class="details_image">
               <div class="details_image_large">
-                <img
-                  v-if="selectedImage"
-                  :src="getImagePath(selectedImage)"
-                  alt
-                />
+                <img v-if="selectedImage" :src="getImagePath(selectedImage)" alt />
                 <div
                   class="product_extra"
                   :class="option[product.option]"
                   v-if="product.option !== 'default'"
                 >
-                  <a href="categories.html">{{
+                  <a href="categories.html">
+                    {{
                     product.option | capitalize
-                  }}</a>
+                    }}
+                  </a>
                 </div>
               </div>
               <div
@@ -66,12 +64,7 @@
               <div class="product_quantity_container">
                 <div class="product_quantity clearfix">
                   <span>Qty</span>
-                  <input
-                    id="quantity_input"
-                    type="text"
-                    pattern="[0-9]*"
-                    :value="quantity"
-                  />>
+                  <input id="quantity_input" type="text" pattern="[0-9]*" :value="quantity" />>
                   <div class="quantity_buttons">
                     <div
                       id="quantity_inc_button"
@@ -176,9 +169,9 @@ export default {
       return require("../images/" + path);
     },
     addToCart() {
-      const item = this.product;
-      const qty = this.quantity;
-      store.addToCart(item, qty);
+      const product = this.product;
+      const quantity = this.quantity;
+      this.$store.dispatch("addToCart", { product, quantity });
     },
     setSelectedImage(img) {
       this.selectedImage = img;

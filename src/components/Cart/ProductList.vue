@@ -13,9 +13,6 @@
 </template>
 
 <script>
-// store
-import { store } from "@/store";
-
 // components
 import ProductListLabels from "@/components/Cart/ProductListLabels";
 import CartItem from "@/components/Cart/CartItem";
@@ -37,12 +34,6 @@ export default {
     return {
       cartItems: this.items
     };
-  },
-  created() {
-    console.log("cartList component created");
-  },
-  updated() {
-    console.log("cart LIST updated");
   }
 };
 </script>

@@ -7,11 +7,7 @@
         <div class="col">
           <div class="product_grid">
             <!-- Product -->
-            <div
-              v-for="product in computedList"
-              :key="product.id"
-              class="product"
-            >
+            <div v-for="product in computedList" :key="product.id" class="product">
               <div class="product_image">
                 <img :src="getImagePath(product.images[0])" alt />
               </div>
@@ -34,8 +30,7 @@
                         option: product.option
                       }
                     }"
-                    >{{ product.name }}</router-link
-                  >
+                  >{{ product.name }}</router-link>
                 </div>
                 <div class="product_price">${{ product.price }}</div>
               </div>
@@ -160,7 +155,6 @@ export default {
       immediate: true,
       handler(newValue, oldValue) {
         if (oldValue === newValue) return;
-        console.log(oldValue, newValue);
         Isotope();
       }
     },

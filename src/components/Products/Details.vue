@@ -113,7 +113,6 @@ export default {
     };
   },
   created() {
-    console.log("product", this.product);
     this.selectedImage = this.product.images[0];
   },
   methods: {

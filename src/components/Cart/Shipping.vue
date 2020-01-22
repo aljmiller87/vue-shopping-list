@@ -39,14 +39,10 @@ export default {
       shipping: 0
     };
   },
-  updated() {
-    console.log("shipping component updated");
-  },
   watch: {
     shipping: {
       immediate: true,
       handler(newValue, oldValue) {
-        console.log("oldValue: ", oldValue, " newValue: ", newValue);
         this.$emit("set-shipping", newValue);
       }
     }

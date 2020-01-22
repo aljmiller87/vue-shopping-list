@@ -72,7 +72,7 @@
                     </svg>
                     <div>
                       Cart
-                      <span>({{ cartNumber }})</span>
+                      <span>({{ cartProductCount }})</span>
                     </div>
                   </router-link>
                 </div>
@@ -169,15 +169,13 @@
 </template>
 
 <script>
-import { store } from "@/store";
+import { mapState } from "vuex";
 
 export default {
   name: "Header",
   data() {
     return {
       header: undefined,
-      store: store,
-      cartNumber: 0,
       searchActive: false,
       searchTerm: ""
     };
@@ -190,6 +188,9 @@ export default {
   beforeDestoy() {
     window.removeEventListener("resize", this.setHeader);
     window.removeEventListener("scroll", this.setHeader);
+  },
+  computed: {
+    ...mapState(["cartProductCount"])
   },
   methods: {
     setHeader() {
@@ -211,14 +212,6 @@ export default {
           params: { searchTerm: this.searchTerm }
         })
         .catch(err => {});
-    }
-  },
-  watch: {
-    "store.itemsNumber": {
-      immediate: true,
-      handler(newValue, oldValue) {
-        this.cartNumber = newValue !== undefined ? newValue : 0;
-      }
     }
   }
 };

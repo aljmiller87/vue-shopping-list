@@ -52,7 +52,7 @@ export default new Vuex.Store({
       state.cartProductCount += quantity;
       saveCartData(cartProducts, state.cartProductCount);
     },
-    REMOVE_FROM_CARD(state, product) {
+    REMOVE_FROM_CART(state, product) {
       // Getting copy of list of products in cart
       let cartProducts = [...state.cartProducts];
 
@@ -70,12 +70,21 @@ export default new Vuex.Store({
       state.cartProductCount -= 1;
       state.cartProducts = cartProducts;
 
-      saveCartData(cartProducts, cartProductCount);
+      saveCartData(state.cartProducts, state.cartProductCount);
+    },
+    CLEAR_CART(state) {
+      state.cartProductCount = 0;
+      state.cartProducts = [];
+      saveCartData(state.cartProducts, state.cartProductCount);
     }
   },
   actions: {
     async getAllData(context) {
       context.commit("SET_LOADING_STATUS", "loading");
+      const savedCart = JSON.parse(window.localStorage.getItem("saved_cart"));
+      if (savedCart) {
+        context.commit("SET_CART", savedCart);
+      }
       const products = await fetchProducts();
       const categories = await fetchCategories();
       context.commit("SET_PRODUCTS", products);
@@ -105,7 +114,10 @@ export default new Vuex.Store({
       context.commit("ADD_TO_CART", payload);
     },
     removeFromCart(context, product) {
-      context.commit("REMOVE_FROM_CARD", product);
+      context.commit("REMOVE_FROM_CART", product);
+    },
+    clearCart(context) {
+      context.commit("CLEAR_CART");
     }
   },
   getters: {

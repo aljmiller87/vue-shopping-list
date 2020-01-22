@@ -60,12 +60,6 @@
                 product: this.cartItem,
             }
         },
-        created () {
-            console.log('cart item created');
-        },
-        updated () {
-            console.log('cart item updated');
-        },
         computed: {
             productTotal() {
                 return this.product.quantity * parseFloat(this.product.product.price);
@@ -76,12 +70,15 @@
                 return require('../../images/' + path);
             },
             addToCart() {
-                const item = this.product.product;
-                store.addToCart(item);
+                const item = {
+                    product: this.product.product,
+                    quantity: 1
+                }
+                this.$store.dispatch('addToCart', item);
             },
             removeFromCart() {
                 const item = this.product.product;
-                store.removeFromCart(item);
+                this.$store.dispatch('removeFromCart', item);
             },
         }
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="cart_info">
     <div class="container">
-      <ProductList :items="items" />
+      <ProductList :items="cartProducts" />
       <CartButtons :clearCart="clearCart" />
       <Extra :subtotal="subtotal" @set-shipping="setShipping" :shipping="shipping" :total="total" />
     </div>
@@ -9,8 +9,7 @@
 </template>
 
 <script>
-// store
-import { store } from "@/store";
+import { mapState } from "vuex";
 
 // components
 import ProductList from "@/components/Cart/ProductList";
@@ -31,19 +30,16 @@ export default {
     return {
       items: [],
       itemNumber: 0,
-      shipping: 0,
-      store: store
+      shipping: 0
     };
   },
-  async created() {
-    await this.loadCart();
-  },
   computed: {
+    ...mapState(["cartProducts"]),
     subtotal: function() {
-      if (!this.items || !this.items.length) {
+      if (!this.cartProducts || !this.cartProducts.length) {
         return 0;
       }
-      const subTotal = this.items.reduce(
+      const subTotal = this.cartProducts.reduce(
         (total, item) => total + item.quantity * item.product.price,
         0
       );
@@ -54,11 +50,6 @@ export default {
     }
   },
   methods: {
-    async loadCart() {
-      const cartItems = [...store.items];
-      this.items = cartItems;
-      this.itemNumber = store.itemNumber;
-    },
     setShipping(number) {
       if (typeof number === "string") {
         this.shipping = parseFloat(number);
@@ -68,17 +59,7 @@ export default {
     },
     clearCart(e) {
       e.preventDefault();
-      console.log("clearCart method in Cart.vue called");
-      store.clearCart();
-    }
-  },
-  watch: {
-    "store.itemsNumber": {
-      immediate: true,
-      async handler(newValue, oldValue) {
-        console.log("oldValue: ", oldValue, " newValue: ", newValue);
-        await this.loadCart();
-      }
+      this.$store.dispatch("clearCart");
     }
   }
 };

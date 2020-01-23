@@ -86,7 +86,7 @@ export default {
       if (ctx.isServer) {
         config.externals = [
           nodeExternals({
-            whitelist: [/^isotope-layout/]
+            whitelist: [/^vue-isotope/]
           })
         ];
       }

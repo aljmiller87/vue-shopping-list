@@ -8,6 +8,7 @@
           <div class="product_grid">
             <isotope
               ref="cpt"
+              :options="{}"
               v-images-loaded:on.progress="layout"
               :list="computedList"
             >
@@ -86,7 +87,8 @@ export default {
         new: "product_new",
         popular: "product_popular",
         sale: "product_sale"
-      }
+      },
+      layout: undefined
     };
   },
   computed: {

@@ -6,49 +6,44 @@
       <div class="row">
         <div class="col">
           <div class="product_grid">
-            <isotope
-              ref="cpt"
-              :options="{}"
-              v-images-loaded:on.progress="layout"
-              :list="computedList"
+            <!-- <NoSSR> -->
+            <!-- Product -->
+            <div
+              v-for="product in computedList"
+              :key="product.id"
+              class="product"
             >
-              <!-- Product -->
-              <div
-                v-for="product in computedList"
-                :key="product.id"
-                class="product"
-              >
-                <div class="product_image">
-                  <img :src="getImagePath(product.images[0])" alt />
-                </div>
-                <div
-                  class="product_extra"
-                  :class="option[product.option]"
-                  v-if="product.option !== 'default'"
-                >
-                  <a href="categories.html">{{
-                    product.option | capitalize
-                  }}</a>
-                </div>
-                <div class="product_content">
-                  <div class="product_title">
-                    <nuxt-link
-                      :to="{
-                        name: 'product-id',
-                        params: {
-                          id: product.id,
-                          name: product.name,
-                          price: product.price,
-                          option: product.option
-                        }
-                      }"
-                      >{{ product.name }}</nuxt-link
-                    >
-                  </div>
-                  <div class="product_price">${{ product.price }}</div>
-                </div>
+              <div class="product_image">
+                <img :src="getImagePath(product.images[0])" alt />
               </div>
-            </isotope>
+              <div
+                class="product_extra"
+                :class="option[product.option]"
+                v-if="product.option !== 'default'"
+              >
+                <a href="categories.html">
+                  {{ product.option | capitalize }}
+                </a>
+              </div>
+              <div class="product_content">
+                <div class="product_title">
+                  <nuxt-link
+                    :to="{
+                      name: 'product-id',
+                      params: {
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        option: product.option
+                      }
+                    }"
+                    >{{ product.name }}</nuxt-link
+                  >
+                </div>
+                <div class="product_price">${{ product.price }}</div>
+              </div>
+            </div>
+            <!-- </NoSSR> -->
           </div>
         </div>
       </div>
@@ -57,16 +52,13 @@
 </template>
 
 <script>
-// import isotope from "vueisotope";
-// import imagesLoaded from "vue-images-loaded";
-if (process.client) {
-  const isotope = require("vueisotope");
-  const imagesLoaded = require("vue-images-loaded");
+let initIsotope;
+let imagesLoaded;
+if (process.browser) {
+  initIsotope = require("../../assets/utils/isotope");
+  imagesLoaded = require("imagesloaded");
 }
-
 import { mapState, mapActions } from "vuex";
-// import imagesLoaded from "imagesloaded";
-// import Isotope from "~/assets/utils/isotope";
 import { fetchProducts } from "~/assets/utils/products";
 import { getImagePath } from "~/assets/utils/getImagePath";
 
@@ -80,7 +72,6 @@ export default {
   },
   data() {
     return {
-      // products: [],
       option: {
         default: "",
         hot: "product_hot",
@@ -88,8 +79,20 @@ export default {
         popular: "product_popular",
         sale: "product_sale"
       },
-      layout: undefined
+      mounted: false,
+      images: []
     };
+  },
+  mounted() {
+    this.mounted = true;
+  },
+  updated() {
+    if (this.images.length === 0) {
+      const imgs = document.querySelectorAll(".product_image");
+      if (imgs.length > 0) {
+        this.images = imgs;
+      }
+    }
   },
   computed: {
     ...mapState(["products", "loadingStatus"]),
@@ -154,6 +157,25 @@ export default {
       const name = product.name.toLowerCase();
       const term = searchTerm.toLowerCase();
       return name.includes(term);
+    },
+    initIsotope() {
+      imagesLoaded(this.images, () => {
+        console.log("images loaded", this.images);
+        var elem = document.querySelector(".product_grid");
+        new Isotope(elem, {
+          // options
+          itemSelector: ".product",
+          layoutMode: "fitRows",
+          fitRows: {
+            gutter: 30
+          },
+          animationOptions: {
+            duration: 750,
+            easing: "linear",
+            queue: false
+          }
+        });
+      });
     }
   },
   filters: {
@@ -164,29 +186,37 @@ export default {
     }
   },
   watch: {
+    "images.length"(newValue, oldValue) {
+      if (newValue > 0) {
+        this.initIsotope();
+      }
+    },
     "products.length": {
-      immediate: true,
+      immediate: false,
       handler(newValue, oldValue) {
-        // if (window != undefined) {
-        //   const images = document.querySelectorAll(".product_image");
-        //   imagesLoaded(images, () => {
-        //     Isotope();
-        //   });
-        // }
+        if (this.mounted) {
+          this.initIsotope();
+        }
       }
     },
     sort: {
-      immediate: true,
+      immediate: false,
       handler(newValue, oldValue) {
         if (oldValue === newValue) return;
-        // Isotope();
+        if (this.mounted) {
+          this.initIsotope();
+        }
       }
     },
     category(newValue, oldValue) {
-      // Isotope();
+      if (this.mounted) {
+        this.initIsotope();
+      }
     },
     searchTerm(newValue, oldValue) {
-      // Isotope();
+      if (this.mounted) {
+        this.initIsotope();
+      }
     }
   }
 };

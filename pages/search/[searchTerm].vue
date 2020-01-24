@@ -24,6 +24,13 @@ export default {
       searchTerm: this.$route.params.searchTerm
     };
   },
+  created() {
+    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getProductCategories");
+  },
+  mounted() {
+    this.$store.dispatch("getCart");
+  },
   watch: {
     "$route.params.searchTerm": function(newValue, oldValue) {
       this.searchTerm = newValue;

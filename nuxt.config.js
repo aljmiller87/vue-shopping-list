@@ -64,8 +64,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: "~/plugins/vue-isotope", mode: "client" },
-    { src: "~/plugins/vue-imagesLoaded", mode: "client" }
+    { src: "~/plugins/vue-isotope", ssr: false },
+    { src: "~/plugins/vue-imagesLoaded", ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -82,7 +82,9 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    vendor: ["vue-isotope"],
     extend(config, ctx) {
+      config.output.globalObject = "this";
       // if (ctx.isServer) {
       //   config.externals = [
       //     nodeExternals({

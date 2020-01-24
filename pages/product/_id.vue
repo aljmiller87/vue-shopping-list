@@ -18,9 +18,9 @@
                   :class="option[product.option]"
                   v-if="product.option !== 'default'"
                 >
-                  <a href="categories.html">
-                    {{ product.option | capitalize }}
-                  </a>
+                  <a href="categories.html">{{
+                    product.option | capitalize
+                  }}</a>
                 </div>
               </div>
               <div
@@ -154,8 +154,15 @@ export default {
     };
   },
   created() {
-    window.scrollTo(0, 0);
     this.product = this.getProductById(this.$route.params.id);
+    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getProductCategories");
+  },
+  mounted() {
+    this.$store.dispatch("getCart");
+    if (window) {
+      window.scrollTo(0, 0);
+    }
   },
   computed: {
     ...mapState(["loadingStatus"]),

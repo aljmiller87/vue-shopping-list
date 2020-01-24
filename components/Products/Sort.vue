@@ -15,19 +15,15 @@
               <div class="sorting">
                 <ul class="item_sorting">
                   <li v-if="productCategories.length > 0">
-                    <span class="sorting_text">{{
+                    <span class="sorting_text">
+                      {{
                       computedCategory | capitalize
-                    }}</span>
+                      }}
+                    </span>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     <ul>
                       <li class="product_sorting_btn">
-                        <button
-                          class="btn-nodefault"
-                          value
-                          v-on:click="setCategory"
-                        >
-                          Default
-                        </button>
+                        <button class="btn-nodefault" value v-on:click="setCategory">Default</button>
                       </li>
                       <li
                         v-for="category in productCategories"
@@ -38,44 +34,26 @@
                           class="btn-nodefault"
                           :value="category"
                           v-on:click="setCategory"
-                        >
-                          {{ category | capitalize }}
-                        </button>
+                        >{{ category | capitalize }}</button>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <span class="sorting_text">{{
+                    <span class="sorting_text">
+                      {{
                       computedSortBy | capitalize
-                    }}</span>
+                      }}
+                    </span>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     <ul>
                       <li class="product_sorting_btn">
-                        <button
-                          class="btn-nodefault"
-                          value
-                          v-on:click="setSortBy"
-                        >
-                          Default
-                        </button>
+                        <button class="btn-nodefault" value v-on:click="setSortBy">Default</button>
                       </li>
                       <li class="product_sorting_btn">
-                        <button
-                          class="btn-nodefault"
-                          value="price"
-                          v-on:click="setSortBy"
-                        >
-                          Price
-                        </button>
+                        <button class="btn-nodefault" value="price" v-on:click="setSortBy">Price</button>
                       </li>
                       <li class="product_sorting_btn">
-                        <button
-                          class="btn-nodefault"
-                          value="name"
-                          v-on:click="setSortBy"
-                        >
-                          Name
-                        </button>
+                        <button class="btn-nodefault" value="name" v-on:click="setSortBy">Name</button>
                       </li>
                     </ul>
                   </li>
@@ -86,23 +64,18 @@
         </div>
       </div>
     </div>
-    <NoSSR>
-      <ProductsList :sort="sortBy" :category="category" />
-    </NoSSR>
+    <ProductsList :sort="sortBy" :category="category" />
   </div>
 </template>
 
 <script>
-import NoSSR from "vue-no-ssr";
-
 import { mapState, mapGetters } from "vuex";
-import ProductsList from "@/components/Products/ProductsList";
+import ProductsList from "~/components/Products/ProductsList";
 
 export default {
   name: "ProductSort",
   components: {
-    ProductsList,
-    NoSSR
+    ProductsList
   },
   data() {
     return {

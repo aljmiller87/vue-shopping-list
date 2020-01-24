@@ -4,15 +4,12 @@
       <Slider />
     </div>
     <Ads />
-    <NoSSR>
-      <ProductsList :limit="8" />
-    </NoSSR>
+    <ProductsList :limit="8" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import NoSSR from "vue-no-ssr";
 
 import * as axios from "axios";
 import Slider from "~/components/Slider";
@@ -24,11 +21,14 @@ export default {
   components: {
     Slider,
     Ads,
-    ProductsList,
-    NoSSR
+    ProductsList
   },
   created() {
-    this.$store.dispatch("getAllData");
+    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getProductCategories");
+  },
+  mounted() {
+    this.$store.dispatch("getCart");
   }
 };
 </script>

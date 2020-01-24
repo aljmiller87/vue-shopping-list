@@ -35,6 +35,13 @@ export default {
       shipping: 0
     };
   },
+  created() {
+    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getProductCategories");
+  },
+  mounted() {
+    this.$store.dispatch("getCart");
+  },
   computed: {
     ...mapState(["cartProducts"]),
     subtotal: function() {

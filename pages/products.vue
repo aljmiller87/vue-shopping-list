@@ -4,16 +4,12 @@
       title="All Products"
       description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus."
     />
-    <NoSSR>
-      <ProductSort />
-    </NoSSR>
+    <ProductSort />
   </div>
 </template>
 
 <script>
-import NoSSR from "vue-no-ssr";
 import ProductHero from "~/components/Products/Hero";
-import ProductsList from "~/components/Products/ProductsList";
 import ProductSort from "~/components/Products/Sort";
 
 export default {
@@ -22,6 +18,13 @@ export default {
     NoSSR,
     ProductHero,
     ProductSort
+  },
+  created() {
+    this.$store.dispatch("getProducts");
+    this.$store.dispatch("getProductCategories");
+  },
+  mounted() {
+    this.$store.dispatch("getCart");
   }
 };
 </script>

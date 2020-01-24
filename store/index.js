@@ -105,10 +105,12 @@ export const actions = {
     context.commit("SET_LOADING_STATUS", "notLoading");
   },
   getCart(context) {
-    const savedCart = JSON.parse(window.localStorage.getItem("saved_cart"));
+    if (window) {
+      const savedCart = JSON.parse(window.localStorage.getItem("saved_cart"));
 
-    if (savedCart) {
-      context.commit("SET_CART", savedCart);
+      if (savedCart) {
+        context.commit("SET_CART", savedCart);
+      }
     }
   },
   addToCart(context, payload) {

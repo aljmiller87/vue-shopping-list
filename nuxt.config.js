@@ -1,4 +1,4 @@
-import nodeExternals from "webpack-node-externals";
+// import nodeExternals from "webpack-node-externals";
 
 export default {
   mode: "universal",
@@ -64,8 +64,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: "~/plugins/vue-isotope", mode: "client" },
-    { src: "~/plugins/vue-imagesLoaded", mode: "client" }
+    { src: "~/plugins/vue-isotope", ssr: false },
+    { src: "~/plugins/vue-imagesLoaded", ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -82,7 +82,9 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    vendor: ["vue-isotope"],
     extend(config, ctx) {
+<<<<<<< HEAD
       if (ctx.isServer) {
         config.externals = [
           nodeExternals({
@@ -90,6 +92,16 @@ export default {
           })
         ];
       }
+=======
+      config.output.globalObject = "this";
+      // if (ctx.isServer) {
+      //   config.externals = [
+      //     nodeExternals({
+      //       whitelist: [/^vue-isotope/]
+      //     })
+      //   ];
+      // }
+>>>>>>> 5b50cbab29219bf4936608577378754abdb5348a
     }
   }
 };

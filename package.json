@@ -13,6 +13,8 @@
   "dependencies": {
     "@nuxtjs/now-builder": "^0.17.0",
     "axios": "^0.19.2",
+    "imagesloaded": "^4.1.4",
+    "isotope-layout": "^3.0.6",
     "nuxt": "^2.0.0",
     "vue-images-loaded": "^1.1.2",
     "vue-no-ssr": "^1.1.1",

@@ -15,7 +15,6 @@ import ProductSort from "~/components/Products/Sort";
 export default {
   name: "products",
   components: {
-    NoSSR,
     ProductHero,
     ProductSort
   },

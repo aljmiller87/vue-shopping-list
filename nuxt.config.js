@@ -84,15 +84,6 @@ export default {
      */
     vendor: ["vue-isotope"],
     extend(config, ctx) {
-<<<<<<< HEAD
-      if (ctx.isServer) {
-        config.externals = [
-          nodeExternals({
-            whitelist: [/^vue-isotope/]
-          })
-        ];
-      }
-=======
       config.output.globalObject = "this";
       // if (ctx.isServer) {
       //   config.externals = [
@@ -101,7 +92,6 @@ export default {
       //     })
       //   ];
       // }
->>>>>>> 5b50cbab29219bf4936608577378754abdb5348a
     }
   }
 };

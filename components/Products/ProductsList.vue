@@ -8,11 +8,7 @@
           <div class="product_grid">
             <!-- <NoSSR> -->
             <!-- Product -->
-            <div
-              v-for="product in computedList"
-              :key="product.id"
-              class="product"
-            >
+            <div v-for="product in computedList" :key="product.id" class="product">
               <div class="product_image">
                 <img :src="getImagePath(product.images[0])" alt />
               </div>
@@ -21,9 +17,7 @@
                 :class="option[product.option]"
                 v-if="product.option !== 'default'"
               >
-                <a href="categories.html">
-                  {{ product.option | capitalize }}
-                </a>
+                <a href="categories.html">{{ product.option | capitalize }}</a>
               </div>
               <div class="product_content">
                 <div class="product_title">
@@ -37,8 +31,7 @@
                         option: product.option
                       }
                     }"
-                    >{{ product.name }}</nuxt-link
-                  >
+                  >{{ product.name }}</nuxt-link>
                 </div>
                 <div class="product_price">${{ product.price }}</div>
               </div>
@@ -52,12 +45,15 @@
 </template>
 
 <script>
-let initIsotope;
-let imagesLoaded;
-if (process.browser) {
-  initIsotope = require("../../assets/utils/isotope");
-  imagesLoaded = require("imagesloaded");
-}
+// let initIsotope;
+// let imagesLoaded;
+console.log("process", process);
+// if (process.browser) {
+//   initIsotope = require("../../assets/utils/isotope");
+//   imagesLoaded = require("imagesloaded");
+// }
+import initIsotope from "~/assets/utils/isotope";
+import imagesLoaded from "imagesloaded";
 import { mapState, mapActions } from "vuex";
 import { fetchProducts } from "~/assets/utils/products";
 import { getImagePath } from "~/assets/utils/getImagePath";

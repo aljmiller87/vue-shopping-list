@@ -64,7 +64,9 @@
         </div>
       </div>
     </div>
-    <ProductsList :sort="sortBy" :category="category" />
+    <client-only placeholder="Loading...">
+      <ProductsList :sort="sortBy" :category="category" />
+    </client-only>
   </div>
 </template>
 

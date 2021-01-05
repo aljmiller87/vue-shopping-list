@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/now-builder": "^0.17.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "imagesloaded": "^4.1.4",
     "isotope-layout": "^3.0.6",
     "nuxt": "^2.0.0",
